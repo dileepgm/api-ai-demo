@@ -1,30 +1,27 @@
 <?php
-
 $method = $_SERVER['REQUEST_METHOD'];
-
 if($method == "POST"){
   $requestBody = file_get_contents('php://input');
   $json = json_decode($requestBody);
   $text = $json->result->parameters->text;
-
   switch($text){
     case 'Hi':
+    case 'hi':
+    case 'hello':
       $speech = "Hi, Nice to meet you";
       break;
-      case 'hi':
-        $speech = "Hi, Nice to meet you";
+    case 'cashout':
+    case 'cash out':
+        $speech = "Cashout is avaialble for top markets in football";
         break;
-    case 'bye':
-        $speech = "Bye, have a good day";
-        break;
-    case 'anything':
-        $speech = "Type anything to get reply";
+    case 'tracker':
+    case 'track':
+        $speech = "You can track the major sports and top markets in Grid application";
         break;
     default:
-       $speech = "Sorry, I didn't get you ";
+       $speech = "Sorry, I didn't get you. Please visit https://thegrid.ladbrokes.com ";
        break;
   }
-
   $response = new \stdClass();
   $response->speech = $speech;
   $response->displayText = $speech;
@@ -33,5 +30,4 @@ if($method == "POST"){
 }else{
   echo "Method not allowed";
 }
-
  ?>
